@@ -7,18 +7,17 @@ const { MYSQL_USERNAME, MYSQL_PASSWORD, MYSQL_ADDRESS = "" } = process.env;
 const [host, port] = MYSQL_ADDRESS.split(":");
 // 创建数据库连接
 const sequelize = new Sequelize(
-  "ifengVane-origin-database", // 数据库
+  "ifengVane-origin-database", // 数据库：腾讯云数据
   MYSQL_USERNAME, // 用户名
   MYSQL_PASSWORD, // 密码
   {
-    host, // 域名
-    port, // 端口
+    host, // 数据库远程访问域名
+    port, // 数据库远程访问端口
     dialect: "mysql" /* one of 'mysql' | 'mariadb' | 'postgres' | 'mssql' */,
   }
 );
-console.log("sequelize", sequelize);
 
-//验证是否连接成功
+// 验证是否连接成功
 sequelize
   .authenticate()
   .then(() => {
@@ -28,22 +27,25 @@ sequelize
     console.error("Unable to connect to the database:", err);
   });
 
-// 定义数据模型(基于表)
-const Feedflow = sequelize.define("Feedflow", {
-  id: {
-    type: DataTyps.BIGINT, // 类型
-    primaryKey: true, // 主键
-    allowNull: false, // 是否为空
-  },
-  title: {
-    type: DataTyps.STRING(50),
-    allowNull: false,
-  },
-  url: {
-    type: DataTyps.STRING(100),
-    allowNull: false,
-  },
-});
+// 定义数据模型
+const Feedflow = sequelize.define(
+  "Feedflow", // 表
+  {
+    id: {
+      type: DataTyps.BIGINT, // 类型
+      primaryKey: true, // 主键
+      allowNull: false, // 是否为空
+    },
+    title: {
+      type: DataTyps.STRING(50),
+      allowNull: false,
+    },
+    url: {
+      type: DataTyps.STRING(100),
+      allowNull: false,
+    },
+  }
+);
 
 // 数据库初始化方法
 async function init() {

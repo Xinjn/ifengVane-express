@@ -42,23 +42,17 @@ app.get("/", async (req, res) => {
 //     data: result,
 //   });
 // });
-// // 测试：获取计数2
-// app.get("/api/count2", async (req, res) => {
-//   const result = await Counter.count();
-//   res.send({
-//     code: 0,
-//     data: result,
-//   });
-// });
 
 // 测试：轮播图数据
 app.get("/api/feedflow", async (req, res) => {
-  console.log("req", req);
-  // const result = await Feedflow.count();
-  // res.send({
-  //   code: 0,
-  //   data: result,
-  // });
+  console.log("请求", req);
+  console.log("响应", res);
+  const feedflows = await Feedflow.Feedflow();
+  console.log("All feedflows", feedflows);
+  res.send({
+    code: 0,
+    data: feedflows,
+  });
 });
 
 // 小程序调用，获取微信 Open ID
@@ -68,11 +62,12 @@ app.get("/api/wx_openid", async (req, res) => {
   }
 });
 
+// 监听端口
 const port = process.env.PORT || 80;
-
 // 启动数据库
 async function bootstrap() {
-  await initDB();
+  await initDB(); // 初始化数据库
+
   app.listen(port, () => {
     console.log("启动成功", port);
   });
