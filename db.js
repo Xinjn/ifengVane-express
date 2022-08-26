@@ -1,17 +1,18 @@
+//引入依赖
 const { Sequelize, DataTypes } = require("sequelize");
 
 // 从环境变量中读取数据库配置
 const { MYSQL_USERNAME, MYSQL_PASSWORD, MYSQL_ADDRESS = "" } = process.env;
 
 const [host, port] = MYSQL_ADDRESS.split(":");
-
+// 创建数据库连接
 const sequelize = new Sequelize("nodejs_demo", MYSQL_USERNAME, MYSQL_PASSWORD, {
   host,
   port,
   dialect: "mysql" /* one of 'mysql' | 'mariadb' | 'postgres' | 'mssql' */,
 });
 
-// 定义数据模型
+// 定义Counter数据模型
 const Counter = sequelize.define("Counter", {
   count: {
     type: DataTypes.INTEGER,
@@ -20,7 +21,7 @@ const Counter = sequelize.define("Counter", {
   },
 });
 
-// 数据库初始化方法
+// 数据库初始化方法（Counter/..）
 async function init() {
   await Counter.sync({ alter: true });
 }
