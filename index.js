@@ -41,6 +41,14 @@ app.get("/api/count", async (req, res) => {
     data: result,
   });
 });
+// 获取计数2
+app.get("/api/count2", async (req, res) => {
+  const result = await Counter.count();
+  res.send({
+    code: 0,
+    data: result,
+  });
+});
 
 // 小程序调用，获取微信 Open ID
 app.get("/api/wx_openid", async (req, res) => {
