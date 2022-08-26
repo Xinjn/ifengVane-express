@@ -45,6 +45,10 @@ const Feedflow = sequelize.define(
       type: DataTypes.STRING(100),
       allowNull: false,
     },
+    thumbnail: {
+      type: DataTypes.STRING(100),
+      allowNull: false,
+    },
   }
 );
 
