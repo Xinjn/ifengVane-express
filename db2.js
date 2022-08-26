@@ -32,9 +32,10 @@ const Feedflow = sequelize.define(
   "Feedflow", // 表
   {
     id: {
-      type: DataTyps.BIGINT, // 类型
+      type: DataTyps.INTEGER(10), // 类型
       primaryKey: true, // 主键
       allowNull: false, // 是否为空
+      autoIncrement: true, // 自动增长
     },
     title: {
       type: DataTyps.STRING(50),
