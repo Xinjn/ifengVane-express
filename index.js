@@ -45,9 +45,7 @@ app.get("/", async (req, res) => {
 
 // 测试：轮播图数据
 app.get("/api/feedflow", async (req, res) => {
-  console.log("请求", req);
-  console.log("响应", res);
-  const feedflows = await Feedflow.Feedflow();
+  const feedflows = await Feedflow.findAll();
   console.log("All feedflows", feedflows);
   res.send({
     code: 0,
